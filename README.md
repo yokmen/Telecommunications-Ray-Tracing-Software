@@ -42,95 +42,53 @@ The following are neglected:
 
 **Electric field of multipath component _n_:**
 
-```latex
-\underline{E_n} = \Gamma_1\Gamma_2\Gamma_3...T_1T_2T_3... \sqrt{60G_{TX}(\theta_{TX_n}\phi_{TX_n})P_{TX}} \frac{e^{-j\beta d_n}}{d_n}
-```
+$$\underline{E_n} = \Gamma_1\Gamma_2\Gamma_3\ldots T_1T_2T_3\ldots \sqrt{60\,G_{TX}(\theta_{TX_n},\phi_{TX_n})\,P_{TX}}\;\frac{e^{-j\beta d_n}}{d_n}$$
 
-with
+with $\underline{E}_n$ the electric field detected at the receiver from multipath component $n$, $\Gamma_i$ the reflection coefficients, $T_i$ the transmission coefficients, $G_{TX}$ the gain of the transmitting antenna in the emission direction, $P_{TX}$ the transmitter power [W], $\beta$ the wavenumber [m$^{-1}$], and $d_n$ the distance traveled [m].
 
-```latex
-\underline{E}_n \text{ the electric field detected at the receiver from multipath component } n \\
-\Gamma_i \text{ the reflection coefficients} \\
-T_i \text{ the transmission coefficients} \\
-G_{TX} \text{ the gain of the transmitting antenna in the emission direction} \\
-P_{TX} \text{ the transmitter power [W]} \\
-\beta \text{ the wavenumber [m}^{-1}\text{]} \\
-d_n \text{ the distance traveled [m]}
-```
+**ERP and EIRP** — the product $G_{TX}(\theta_{TX_n},\phi_{TX_n}) \cdot P_{TX}$ is given by the ERP (Effective Radiated Power) / EIRP (Effective Isotropic Radiated Power) pair:
 
-**ERP and EIRP** — the product $G_{TX}(\theta_{TX_n}\phi_{TX_n}) \cdot P_{TX}$ is given by the ERP (Effective Radiated Power) / EIRP (Effective Isotropic Radiated Power) pair:
-
-```latex
-\begin{cases}
-    \text{EIRP[dBm] } = G_{TX}(\theta,\phi)\text{[dBm]} + \text{ ERP[dBm]} \\
-    \text{EIRP[dBm] } = 2.25 + \text{ ERP[dBm]}
-\end{cases}
-```
+$$\begin{cases} \text{EIRP[dBm]} = G_{TX}(\theta,\phi)\text{[dBi]} + \text{ERP[dBm]} \\ \text{EIRP[dBm]} = 2.25 + \text{ERP[dBm]} \end{cases}$$
 
 where ERP equals 0 dBm in the TP 8 case and 20 dBm in the aircraft case.
 
 **Received power:**
 
-```latex
-P_{RX} = \frac{\lambda^2}{8\pi^2R_a} \left|\sum_{n=1}^N \underline{E_n}\right|^2
-```
+$$P_{RX} = \frac{\lambda^2}{8\pi^2 R_a} \left|\sum_{n=1}^N \underline{E_n}\right|^2$$
 
-with
-
-```latex
-\lambda \text{ the wavelength [m]} \\
-R_a \text{ the antenna resistance } [\Omega]
-```
+with $\lambda$ the wavelength [m] and $R_a$ the antenna resistance [$\Omega$].
 
 **Average power in a local zone:**
 
-```latex
-P_{RX} = \frac{\lambda^2}{8\pi^2R_a} \sum_{n=1}^N \left|\underline{E_n}\right|^2
-```
+$$P_{RX} = \frac{\lambda^2}{8\pi^2 R_a} \sum_{n=1}^N \left|\underline{E_n}\right|^2$$
 
 **Reflection coefficient for perpendicular polarization:**
 
-```latex
-\Gamma_\perp(\theta_i) = \frac{Z_2\cos\theta_i - Z_1 \cos\theta_t}{Z_2\cos\theta_i + Z_1 \cos\theta_t}
-```
+$$\Gamma_\perp(\theta_i) = \frac{Z_2\cos\theta_i - Z_1\cos\theta_t}{Z_2\cos\theta_i + Z_1\cos\theta_t}$$
 
 where $Z_i$ is the impedance of medium $i$ [$\Omega$], $\theta_i$ is the angle of incidence and $\theta_t$ is the angle of refraction.
 
 **Total reflection coefficient:**
 
-```latex
-\Gamma_m = \Gamma_\perp - (1-\Gamma_\perp^2) \frac{\Gamma_\perp e^{-2j\beta_ms}e^{j\beta 2s\sin\theta_t\sin\theta_i}}{1-\Gamma_\perp^2 e^{-2j\beta_ms}e^{j\beta 2s \sin\theta_t\sin\theta_i}}
-```
+$$\Gamma_m = \Gamma_\perp - (1-\Gamma_\perp^2)\,\frac{\Gamma_\perp\, e^{-2j\beta_m s}\, e^{j\beta\, 2s\sin\theta_t\sin\theta_i}}{1-\Gamma_\perp^2\, e^{-2j\beta_m s}\, e^{j\beta\, 2s\sin\theta_t\sin\theta_i}}$$
 
-where $s = \frac{l}{\cos\theta_t}$ is the propagation distance.
+where $s = \dfrac{l}{\cos\theta_t}$ is the propagation distance.
 
 **Transmission coefficient through the wall:**
 
-```latex
-T_m(\theta_i) = \frac{(1-\Gamma^2_\perp(\theta_i))e^{-\gamma_m s}}{1-\Gamma^2_\perp(\theta_i)e^{-2\gamma_ms}e^{j\beta 2s \sin\theta_t \sin\theta_i}}
-```
+$$T_m(\theta_i) = \frac{\bigl(1-\Gamma_\perp^2(\theta_i)\bigr)\, e^{-\gamma_m s}}{1-\Gamma_\perp^2(\theta_i)\, e^{-2\gamma_m s}\, e^{j\beta\, 2s\sin\theta_t\sin\theta_i}}$$
 
 where $\gamma_m$ is the complex propagation constant:
 
-```latex
-\gamma_m = \alpha + j\beta = \omega\sqrt{\frac{\mu_0\epsilon}{2}}\left[\sqrt{1+\left(\frac{\sigma}{\omega\epsilon}\right)^2} - 1\right]^{1/2} + j\omega\sqrt{\frac{\mu_0\epsilon}{2}}\left[\sqrt{1+\left(\frac{\sigma}{\omega\epsilon}\right)^2} + 1\right]^{1/2}
-```
+$$\gamma_m = \alpha + j\beta = \omega\sqrt{\frac{\mu_0\epsilon}{2}}\left[\sqrt{1+\left(\frac{\sigma}{\omega\epsilon}\right)^2} - 1\right]^{1/2} + j\,\omega\sqrt{\frac{\mu_0\epsilon}{2}}\left[\sqrt{1+\left(\frac{\sigma}{\omega\epsilon}\right)^2} + 1\right]^{1/2}$$
 
 **Received power in logarithmic scale:**
 
-```latex
-P\,[\text{dBm}] = 10 \log \frac{P_{RX}[\text{W}]}{1\,\text{mW}}
-```
+$$P\,[\text{dBm}] = 10\log\frac{P_{RX}[\text{W}]}{1\,\text{mW}}$$
 
 **Bit rate** — varies linearly with the logarithmic power. It equals 27.5 Mb/s at −78 dBm and can be assumed equal to 27.5 Mb/s for lower powers since the reported rate is not sufficient. The maximum value is 4620 Mb/s at −53 dBm:
 
-```latex
-D = \begin{cases}
-    27.5 \text{ Mb/s}, & P < -78 \text{ dBm} \\
-    \frac{4620 - 27.5}{-53 - (-78)}P + 27.5 = (183.7\,P + 27.5) \text{ Mb/s}, & -78 \text{ dBm} \leq P \leq -53 \text{ dBm} \\
-    4620 \text{ Mb/s}, & P > -53 \text{ dBm}
-\end{cases}
-```
+$$D = \begin{cases} 27.5\ \text{Mb/s}, & P < -78\ \text{dBm} \\ \dfrac{4620 - 27.5}{-53 - (-78)}\,P + 27.5 = (183.7\,P + 27.5)\ \text{Mb/s}, & -78\ \text{dBm} \leq P \leq -53\ \text{dBm} \\ 4620\ \text{Mb/s}, & P > -53\ \text{dBm} \end{cases}$$
 
 ## Project layout
 
