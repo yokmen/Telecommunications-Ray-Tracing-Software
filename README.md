@@ -42,74 +42,94 @@ The following are neglected:
 
 **Electric field of multipath component _n_:**
 
-```
-E_n = Γ₁Γ₂Γ₃… · T₁T₂T₃… · √(60 · G_TX(θ,φ) · P_TX) · exp(-jβd_n) / d_n
-```
-
-where the `Γᵢ` are reflection coefficients, the `Tᵢ` transmission coefficients, `G_TX` the transmitter gain in the emission direction, `P_TX` the transmit power (W), `β` the wavenumber (m⁻¹), and `d_n` the distance traveled (m).
-
-**ERP / EIRP** — the product `G_TX(θ,φ) · P_TX` is given by:
-
-```
-EIRP[dBm] = G_TX(θ,φ)[dBi] + ERP[dBm]
-EIRP[dBm] = 2.25 + ERP[dBm]
+```latex
+\underline{E_n} = \Gamma_1\Gamma_2\Gamma_3...T_1T_2T_3... \sqrt{60G_{TX}(\theta_{TX_n}\phi_{TX_n})P_{TX}} \frac{e^{-j\beta d_n}}{d_n}
 ```
 
-with ERP = 0 dBm for TP 8 and 20 dBm for the aircraft case.
+with
 
-**Received power (coherent sum):**
-
-```
-P_RX = λ² / (8π²·R_a) · |Σ E_n|²
-```
-
-**Average power in a local zone (incoherent sum):**
-
-```
-P_RX = λ² / (8π²·R_a) · Σ |E_n|²
+```latex
+\underline{E}_n \text{ the electric field detected at the receiver from multipath component } n \\
+\Gamma_i \text{ the reflection coefficients} \\
+T_i \text{ the transmission coefficients} \\
+G_{TX} \text{ the gain of the transmitting antenna in the emission direction} \\
+P_{TX} \text{ the transmitter power [W]} \\
+\beta \text{ the wavenumber [m}^{-1}\text{]} \\
+d_n \text{ the distance traveled [m]}
 ```
 
-**Perpendicular-polarization reflection coefficient:**
+**ERP and EIRP** — the product $G_{TX}(\theta_{TX_n}\phi_{TX_n}) \cdot P_{TX}$ is given by the ERP (Effective Radiated Power) / EIRP (Effective Isotropic Radiated Power) pair:
 
-```
-Γ⊥(θ_i) = (Z₂·cos θ_i − Z₁·cos θ_t) / (Z₂·cos θ_i + Z₁·cos θ_t)
-```
-
-**Total reflection coefficient** (accounting for multiple internal reflections inside the wall):
-
-```
-Γ_m = Γ⊥ − (1 − Γ⊥²) · [Γ⊥·e^(−2jβ_m·s)·e^(jβ·2s·sin θ_t·sin θ_i)]
-           / [1 − Γ⊥²·e^(−2jβ_m·s)·e^(jβ·2s·sin θ_t·sin θ_i)]
+```latex
+\begin{cases}
+    \text{EIRP[dBm] } = G_{TX}(\theta,\phi)\text{[dBm]} + \text{ ERP[dBm]} \\
+    \text{EIRP[dBm] } = 2.25 + \text{ ERP[dBm]}
+\end{cases}
 ```
 
-with `s = l / cos θ_t`.
+where ERP equals 0 dBm in the TP 8 case and 20 dBm in the aircraft case.
+
+**Received power:**
+
+```latex
+P_{RX} = \frac{\lambda^2}{8\pi^2R_a} \left|\sum_{n=1}^N \underline{E_n}\right|^2
+```
+
+with
+
+```latex
+\lambda \text{ the wavelength [m]} \\
+R_a \text{ the antenna resistance } [\Omega]
+```
+
+**Average power in a local zone:**
+
+```latex
+P_{RX} = \frac{\lambda^2}{8\pi^2R_a} \sum_{n=1}^N \left|\underline{E_n}\right|^2
+```
+
+**Reflection coefficient for perpendicular polarization:**
+
+```latex
+\Gamma_\perp(\theta_i) = \frac{Z_2\cos\theta_i - Z_1 \cos\theta_t}{Z_2\cos\theta_i + Z_1 \cos\theta_t}
+```
+
+where $Z_i$ is the impedance of medium $i$ [$\Omega$], $\theta_i$ is the angle of incidence and $\theta_t$ is the angle of refraction.
+
+**Total reflection coefficient:**
+
+```latex
+\Gamma_m = \Gamma_\perp - (1-\Gamma_\perp^2) \frac{\Gamma_\perp e^{-2j\beta_ms}e^{j\beta 2s\sin\theta_t\sin\theta_i}}{1-\Gamma_\perp^2 e^{-2j\beta_ms}e^{j\beta 2s \sin\theta_t\sin\theta_i}}
+```
+
+where $s = \frac{l}{\cos\theta_t}$ is the propagation distance.
 
 **Transmission coefficient through the wall:**
 
-```
-T_m(θ_i) = (1 − Γ⊥²)·e^(−γ_m·s)
-         / [1 − Γ⊥²·e^(−2γ_m·s)·e^(jβ·2s·sin θ_t·sin θ_i)]
-```
-
-where `γ_m = α + jβ` is the complex propagation constant:
-
-```
-γ_m = ω·√(μ₀ε/2) · [√(1 + (σ/ωε)²) − 1]^(1/2)
-    + jω·√(μ₀ε/2) · [√(1 + (σ/ωε)²) + 1]^(1/2)
+```latex
+T_m(\theta_i) = \frac{(1-\Gamma^2_\perp(\theta_i))e^{-\gamma_m s}}{1-\Gamma^2_\perp(\theta_i)e^{-2\gamma_ms}e^{j\beta 2s \sin\theta_t \sin\theta_i}}
 ```
 
-**Power in dBm:**
+where $\gamma_m$ is the complex propagation constant:
 
-```
-P[dBm] = 10·log₁₀(P_RX[W] / 1 mW)
+```latex
+\gamma_m = \alpha + j\beta = \omega\sqrt{\frac{\mu_0\epsilon}{2}}\left[\sqrt{1+\left(\frac{\sigma}{\omega\epsilon}\right)^2} - 1\right]^{1/2} + j\omega\sqrt{\frac{\mu_0\epsilon}{2}}\left[\sqrt{1+\left(\frac{\sigma}{\omega\epsilon}\right)^2} + 1\right]^{1/2}
 ```
 
-**Bit rate** — varies linearly with the logarithmic power between two reference points (27.5 Mb/s at −78 dBm, 4620 Mb/s at −53 dBm) and is clamped outside that range:
+**Received power in logarithmic scale:**
 
+```latex
+P\,[\text{dBm}] = 10 \log \frac{P_{RX}[\text{W}]}{1\,\text{mW}}
 ```
-D = 27.5 Mb/s                              if P < −78 dBm
-D = 183.7·P + 27.5  Mb/s                   if −78 dBm ≤ P ≤ −53 dBm
-D = 4620 Mb/s                              if P > −53 dBm
+
+**Bit rate** — varies linearly with the logarithmic power. It equals 27.5 Mb/s at −78 dBm and can be assumed equal to 27.5 Mb/s for lower powers since the reported rate is not sufficient. The maximum value is 4620 Mb/s at −53 dBm:
+
+```latex
+D = \begin{cases}
+    27.5 \text{ Mb/s}, & P < -78 \text{ dBm} \\
+    \frac{4620 - 27.5}{-53 - (-78)}P + 27.5 = (183.7\,P + 27.5) \text{ Mb/s}, & -78 \text{ dBm} \leq P \leq -53 \text{ dBm} \\
+    4620 \text{ Mb/s}, & P > -53 \text{ dBm}
+\end{cases}
 ```
 
 ## Project layout
